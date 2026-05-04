@@ -5,6 +5,7 @@ Collection of reusable **nix flake templates** for development environments.
 ## Available Templates
 
 * **java**: Java development (choosable JDK 8/17/21/25 + Maven)
+* **java-spring**: Java development with Spring Boot (choosable JDK 8/17/21/25 + Maven + Spring CLI)
 * **systems**: C/C++/NASM development (low-level programming)
 
 ## Usage
