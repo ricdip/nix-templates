@@ -4,14 +4,27 @@
   outputs =
     { self, nixpkgs }:
     let
-      system = "x86_64-linux";
-      pkgs = import nixpkgs { inherit system; };
-      mkJavaShell = import ./lib/java.nix { inherit pkgs; };
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
+      forAllSystems =
+        f:
+        nixpkgs.lib.genAttrs systems (
+          system:
+          let
+            pkgs = import nixpkgs { inherit system; };
+          in
+          f system pkgs
+        );
     in
     {
-      lib = {
-        mkJavaShell = mkJavaShell;
-      };
+      inherit systems;
+      lib = forAllSystems (
+        system: pkgs: {
+          mkJavaShell = import ./lib/java.nix { inherit pkgs; };
+        }
+      );
       templates = {
         # nix flake init -t .#java
         java = {

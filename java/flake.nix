@@ -16,20 +16,29 @@
       base,
     }:
     let
-      system = "x86_64-linux";
-      pkgs = import nixpkgs { inherit system; };
-      mkJavaShell = base.lib.mkJavaShell;
+      systems = base.systems;
+      forAllSystems =
+        f:
+        nixpkgs.lib.genAttrs systems (
+          system:
+          let
+            pkgs = import nixpkgs { inherit system; };
+          in
+          f system pkgs
+        );
     in
     {
       # nix develop .#jdk21 to use Java 21
       # nix develop to use default Java
-      devShells.${system} = {
-        jdk8 = mkJavaShell { jdk = pkgs.jdk8; };
-        jdk17 = mkJavaShell { jdk = pkgs.jdk17; };
-        jdk21 = mkJavaShell { jdk = pkgs.jdk21; };
-        jdk25 = mkJavaShell { jdk = pkgs.jdk25; };
+      devShells = forAllSystems (
+        system: pkgs: {
+          jdk8 = base.lib.${system}.mkJavaShell { jdk = pkgs.jdk8; };
+          jdk17 = base.lib.${system}.mkJavaShell { jdk = pkgs.jdk17; };
+          jdk21 = base.lib.${system}.mkJavaShell { jdk = pkgs.jdk21; };
+          jdk25 = base.lib.${system}.mkJavaShell { jdk = pkgs.jdk25; };
 
-        default = mkJavaShell { jdk = pkgs.jdk21; };
-      };
+          default = base.lib.${system}.mkJavaShell { jdk = pkgs.jdk21; };
+        }
+      );
     };
 }
