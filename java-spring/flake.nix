@@ -3,7 +3,10 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    base.url = "github:ricdip/nix-templates";
+    base = {
+      url = "github:ricdip/nix-templates";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
