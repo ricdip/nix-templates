@@ -1,5 +1,5 @@
 {
-  description = "C/C++/NASM development environment";
+  description = "C/C++/NASM development environment (user-space development)";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";

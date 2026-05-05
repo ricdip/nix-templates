@@ -39,7 +39,7 @@
         # nix flake init -t .#systems
         systems = {
           path = ./systems;
-          description = "C/C++/NASM development environment";
+          description = "C/C++/NASM development environment (user-space development)";
         };
       };
     };
