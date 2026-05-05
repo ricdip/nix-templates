@@ -1,5 +1,5 @@
 {
-  description = "Nix programming templates";
+  description = "Nix templates for development environments";
 
   outputs =
     { self, nixpkgs }:
@@ -36,11 +36,17 @@
           path = ./java-spring;
           description = "Java development environment with Spring Boot";
         };
-        # nix flake init -t .#systems
-        systems = {
-          path = ./systems;
-          description = "C/C++/NASM development environment (user-space development)";
+        # nix flake init -t .#system
+        system = {
+          path = ./system;
+          description = "C/C++/NASM user-space development environment";
         };
+        # TODO: work in progress
+        # nix flake init -t .#kernel
+        # kernel = {
+        # path = ./kernel;
+        # description = "C/C++/NASM kernel-space development environment";
+        # };
       };
     };
 }
