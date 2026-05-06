@@ -41,7 +41,6 @@
           path = ./system;
           description = "C/C++/NASM user-space development environment";
         };
-        # TODO: work in progress
         # nix flake init -t .#kernel
         kernel = {
           path = ./kernel;
