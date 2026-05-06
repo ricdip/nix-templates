@@ -36,10 +36,10 @@
             packages = [
               # dev
               hostPkgs.gcc # GNU Compiler Collection
-              hostPkgs.strace # System call tracer for Linux
-              hostPkgs.ltrace # Library call tracer
-              hostPkgs.man # Implementation of the standard Unix documentation system accessed using the man command
-              hostPkgs.man-pages # Linux development manual pages
+              hostPkgs.strace # system call tracer for Linux
+              hostPkgs.ltrace # library call tracer
+              hostPkgs.man # implementation of the standard Unix documentation system accessed using the man command
+              hostPkgs.man-pages # linux development manual pages
               hostPkgs.man-pages-posix # POSIX man-pages (0p, 1p, 3p)
               hostPkgs.gnumake # tool to control the generation of non-source files from sources (make)
               hostPkgs.binutils # tools for manipulating binaries (linker, assembler, etc.)
@@ -47,17 +47,19 @@
               crossPkgs.gcc # GNU Compiler Collection [cross compiling]
               crossPkgs.binutils # tools for manipulating binaries (linker, assembler, etc.) [cross compiling]
               # kernel
-              hostPkgs.ncurses # Free software emulation of curses in SVR4 and more
-              hostPkgs.flex # Fast lexical analyser generator
+              hostPkgs.ncurses # free software emulation of curses in SVR4 and more
+              hostPkgs.flex # fast lexical analyser generator
               hostPkgs.bison # Yacc-compatible parser generator
               hostPkgs.bc # GNU software calculator
-              hostPkgs.libelf # ELF object file access library
-              hostPkgs.openssl # Cryptographic library that implements the SSL and TLS protocols
-              hostPkgs.syslinux # Lightweight bootloader
-              hostPkgs.dosfstools # Utilities for creating and checking FAT and VFAT file systems
+              # hostPkgs.libelf # ELF object file access library
+              hostPkgs.elfutils # set of utilities to handle ELF objects
+              hostPkgs.openssl # cryptographic library that implements the SSL and TLS protocols
+              hostPkgs.syslinux # lightweight bootloader
+              hostPkgs.dosfstools # utilities for creating and checking FAT and VFAT file systems
 
-              hostPkgs.qemu # Generic and open source machine emulator and virtualizer
+              hostPkgs.qemu # generic and open source machine emulator and virtualizer
               hostPkgs.gdb # GNU Project debugger
+              hostPkgs.pkg-config # tool that allows packages to find out information about other packages
 
               hostPkgs.nasm # 80x86 and x86-64 assembler
 
@@ -70,7 +72,16 @@
               hostPkgs.scc # a very fast accurate code counter with complexity calculations
             ];
 
+            # other flags:
+            # HOSTCFLAGS="$CFLAGS -std=gnu11"
+            # KCFLAGS="-std=gnu11 -Wno-error"
+            # KBUILD_CFLAGS="-std=gnu11"
+            # KBUILD_HOSTCFLAGS="-std=gnu11"
             shellHook = ''
+              export CFLAGS="$(pkg-config --cflags libelf)"
+              export LDFLAGS="$(pkg-config --libs libelf)"
+              export HOSTCFLAGS="$CFLAGS"
+              export HOSTLDFLAGS="$LDFLAGS"
               echo "> Gcc"
               gcc --version
               echo "> Nasm"

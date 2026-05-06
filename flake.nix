@@ -43,10 +43,10 @@
         };
         # TODO: work in progress
         # nix flake init -t .#kernel
-        # kernel = {
-        # path = ./kernel;
-        # description = "C/C++/NASM kernel-space development environment";
-        # };
+        kernel = {
+          path = ./kernel;
+          description = "C/C++/NASM kernel-space development environment";
+        };
       };
     };
 }
