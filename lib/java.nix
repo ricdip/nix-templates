@@ -18,8 +18,8 @@ pkgs.mkShell {
   ]
   ++ extraInputs;
 
-  JAVA_HOME = jdk;
-  MAVEN_HOME = pkgs.maven;
+  JAVA_HOME = "${jdk}/lib/openjdk";
+  MAVEN_HOME = "${pkgs.maven}/maven";
 
   shellHook = ''
     echo ""
