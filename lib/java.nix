@@ -19,10 +19,12 @@ pkgs.mkShell {
   ++ extraInputs;
 
   JAVA_HOME = jdk;
+  MAVEN_HOME = pkgs.maven;
 
   shellHook = ''
-    export MAVEN_OPTS="-Dmaven.repo.local=$PWD/.m2"
+    echo ""
     echo "> Using Java from: $JAVA_HOME"
+    echo "> Using Maven from: $MAVEN_HOME"
     echo "> Java"
     java --version
     echo "> Javac"
@@ -32,6 +34,9 @@ pkgs.mkShell {
   ''
   + extraShellHook
   + ''
+    echo ""
+    echo "*****************************"
     echo "> Java dev environment ready!"
+    echo "*****************************"
   '';
 }

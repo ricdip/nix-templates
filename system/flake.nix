@@ -55,11 +55,15 @@
           ];
 
           shellHook = ''
+            echo ""
             echo "> Gcc"
             gcc --version
             echo "> Nasm"
             nasm -v
+            echo ""
+            echo "**********************************************"
             echo "> C/C++/NASM user-space dev environment ready!"
+            echo "**********************************************"
           '';
         };
       });

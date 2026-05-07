@@ -101,16 +101,20 @@
                 make CC=i686-unknown-linux-gnu-gcc -j$(nproc)
               }
 
+              echo ""
               echo "- Dynamic link: 'make -j$(nproc)'"
               echo "- Dynamic link with i686: 'make CC=i686-unknown-linux-gnu-gcc -j$(nproc)'"
               echo "- Static link: 'make CC=x86_64-unknown-linux-musl-gcc -j$(nproc)'"
-              echo "- For kernel compile use set-libelf to enable libelf, unset-libelf to disable it"
+              echo "- For kernel compile use 'set-libelf' to enable libelf, 'unset-libelf' to disable it"
 
               echo "> Gcc"
               gcc --version
               echo "> Nasm"
               nasm -v
+              echo ""
+              echo "************************************************"
               echo "> C/C++/NASM kernel-space dev environment ready!"
+              echo "************************************************"
             '';
           };
         }
