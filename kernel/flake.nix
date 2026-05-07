@@ -1,4 +1,3 @@
-# TODO: work in progress
 {
   description = "C/C++/NASM kernel-space development environment";
 
@@ -24,34 +23,37 @@
           system:
           let
             hostPkgs = import nixpkgs { inherit system; };
-            crossPkgs = hostPkgs.pkgsCross.gnu32;
+            crossPkgs = hostPkgs.pkgsCross.gnu32; # i686-unknown-linux-gnu-gcc
+            staticPkgs = hostPkgs.pkgsCross.musl64; # x86_64-unknown-linux-musl-gcc
           in
-          f hostPkgs crossPkgs
+          f hostPkgs crossPkgs staticPkgs
         );
     in
     {
       devShells = forAllSystems (
-        hostPkgs: crossPkgs: {
+        hostPkgs: crossPkgs: staticPkgs: {
           default = hostPkgs.mkShell {
             packages = [
               # dev
-              hostPkgs.gcc # GNU Compiler Collection
               hostPkgs.strace # system call tracer for Linux
               hostPkgs.ltrace # library call tracer
               hostPkgs.man # implementation of the standard Unix documentation system accessed using the man command
               hostPkgs.man-pages # linux development manual pages
               hostPkgs.man-pages-posix # POSIX man-pages (0p, 1p, 3p)
               hostPkgs.gnumake # tool to control the generation of non-source files from sources (make)
+              hostPkgs.gcc # GNU Compiler Collection
               hostPkgs.binutils # tools for manipulating binaries (linker, assembler, etc.)
 
               crossPkgs.gcc # GNU Compiler Collection [cross compiling]
               crossPkgs.binutils # tools for manipulating binaries (linker, assembler, etc.) [cross compiling]
+              staticPkgs.gcc # GNU Compiler Collection [static linking]
+              staticPkgs.binutils # tools for manipulating binaries (linker, assembler, etc.) [static linking]
+
               # kernel
               hostPkgs.ncurses # free software emulation of curses in SVR4 and more
               hostPkgs.flex # fast lexical analyser generator
               hostPkgs.bison # Yacc-compatible parser generator
               hostPkgs.bc # GNU software calculator
-              # hostPkgs.libelf # ELF object file access library
               hostPkgs.elfutils # set of utilities to handle ELF objects
               hostPkgs.openssl # cryptographic library that implements the SSL and TLS protocols
               hostPkgs.syslinux # lightweight bootloader
@@ -72,16 +74,38 @@
               hostPkgs.scc # a very fast accurate code counter with complexity calculations
             ];
 
-            # other flags:
-            # HOSTCFLAGS="$CFLAGS -std=gnu11"
-            # KCFLAGS="-std=gnu11 -Wno-error"
-            # KBUILD_CFLAGS="-std=gnu11"
-            # KBUILD_HOSTCFLAGS="-std=gnu11"
             shellHook = ''
-              export CFLAGS="$(pkg-config --cflags libelf)"
-              export LDFLAGS="$(pkg-config --libs libelf)"
-              export HOSTCFLAGS="$CFLAGS"
-              export HOSTLDFLAGS="$LDFLAGS"
+              set-libelf() {
+                export CFLAGS="$(pkg-config --cflags libelf)"
+                export LDFLAGS="$(pkg-config --libs libelf)"
+                export HOSTCFLAGS="$CFLAGS"
+                export HOSTLDFLAGS="$LDFLAGS"
+              } 
+
+              unset-libelf() {
+                unset CFLAGS
+                unset LDFLAGS
+                unset HOSTCFLAGS
+                unset HOSTLDFLAGS
+              }
+
+              make-static() {
+                make CC=x86_64-unknown-linux-musl-gcc -j$(nproc)
+              }
+
+              make-x86_64() {
+                make -j$(nproc)
+              }
+
+              make-i686() {
+                make CC=i686-unknown-linux-gnu-gcc -j$(nproc)
+              }
+
+              echo "- Dynamic link: 'make -j$(nproc)'"
+              echo "- Dynamic link with i686: 'make CC=i686-unknown-linux-gnu-gcc -j$(nproc)'"
+              echo "- Static link: 'make CC=x86_64-unknown-linux-musl-gcc -j$(nproc)'"
+              echo "- For kernel compile use set-libelf to enable libelf, unset-libelf to disable it"
+
               echo "> Gcc"
               gcc --version
               echo "> Nasm"
