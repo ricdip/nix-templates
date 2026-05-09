@@ -51,6 +51,11 @@
           path = ./python-poetry;
           description = "Python development environment with poetry";
         };
+        # nix flake init -t .#go
+        go = {
+          path = ./go;
+          description = "Go development environment";
+        };
       };
     };
 }

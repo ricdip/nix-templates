@@ -1,0 +1,15 @@
+# Show help message
+default:
+    @just --list
+
+# Initialize a Go module (module example: example.com/myapp)
+go-init MODULE:
+    go mod init {{MODULE}}
+
+# Run Go module
+go-run:
+    go run .
+
+# Compile Go module into an executable
+go-build:
+    go build
