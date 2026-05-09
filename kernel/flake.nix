@@ -24,15 +24,15 @@
           let
             hostPkgs = import nixpkgs { inherit system; };
             crossPkgs = hostPkgs.pkgsCross.gnu32; # i686-unknown-linux-gnu-gcc
-            staticPkgs = hostPkgs.pkgsCross.musl64; # x86_64-unknown-linux-musl-gcc
           in
-          f hostPkgs crossPkgs staticPkgs
+          f hostPkgs crossPkgs
         );
     in
     {
       devShells = forAllSystems (
-        hostPkgs: crossPkgs: staticPkgs: {
+        hostPkgs: crossPkgs: {
           default = hostPkgs.mkShell {
+            hardeningDisable = [ "all" ];
             packages = [
               # dev
               hostPkgs.strace # system call tracer for Linux
@@ -46,8 +46,7 @@
 
               crossPkgs.gcc # GNU Compiler Collection [cross compiling]
               crossPkgs.binutils # tools for manipulating binaries (linker, assembler, etc.) [cross compiling]
-              staticPkgs.gcc # GNU Compiler Collection [static linking]
-              staticPkgs.binutils # tools for manipulating binaries (linker, assembler, etc.) [static linking]
+              hostPkgs.musl # efficient, small, quality libc implementation [static]
 
               # kernel
               hostPkgs.ncurses # free software emulation of curses in SVR4 and more
@@ -57,7 +56,12 @@
               hostPkgs.elfutils # set of utilities to handle ELF objects
               hostPkgs.openssl # cryptographic library that implements the SSL and TLS protocols
               hostPkgs.syslinux # lightweight bootloader
+              hostPkgs.grub2 # GNU GRUB, the Grand Unified Boot Loader
               hostPkgs.dosfstools # utilities for creating and checking FAT and VFAT file systems
+              hostPkgs.cpio # program to create or extract from cpio archives
+              hostPkgs.xz # general-purpose data compression software, successor of LZMA
+              hostPkgs.gzip # GNU zip compression program
+              hostPkgs.zstd # zstandard real-time compression algorithm
 
               hostPkgs.qemu # generic and open source machine emulator and virtualizer
               hostPkgs.gdb # GNU Project debugger
@@ -90,7 +94,7 @@
               }
 
               make-static() {
-                make CC=x86_64-unknown-linux-musl-gcc -j$(nproc)
+                make CC=musl-gcc -j$(nproc)
               }
 
               make-x86_64() {
@@ -101,10 +105,13 @@
                 make CC=i686-unknown-linux-gnu-gcc -j$(nproc)
               }
 
+              unset NIX_CFLAGS_COMPILE
+              unset NIX_LDFLAGS
+
               echo ""
               echo "- Dynamic link: 'make -j$(nproc)'"
               echo "- Dynamic link with i686: 'make CC=i686-unknown-linux-gnu-gcc -j$(nproc)'"
-              echo "- Static link: 'make CC=x86_64-unknown-linux-musl-gcc -j$(nproc)'"
+              echo "- Static link: 'make CC=musl-gcc -j$(nproc)'"
               echo "- For kernel compile use 'set-libelf' to enable libelf, 'unset-libelf' to disable it"
 
               echo "> Gcc"

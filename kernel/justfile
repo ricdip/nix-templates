@@ -1,0 +1,27 @@
+# Show help message
+default:
+    @just --list
+
+# Git clone linux kernel repository
+git-clone-linux:
+    git clone --depth 1 https://github.com/torvalds/linux.git
+
+# Git clone linux kernel repository with specific tag
+git-clone-linux-tag TAG:
+    git clone --depth 1 -b {{TAG}} https://github.com/torvalds/linux.git
+
+# Git clone busybox repository
+git-clone-busybox:
+    git clone --depth 1 https://git.busybox.net/busybox
+
+# Git clone busybox repository with specific tag
+git-clone-busybox-tag TAG:
+    git clone --depth 1 -b {{TAG}} https://git.busybox.net/busybox
+
+# Create initramfs file
+create-initramfs:
+    if [ -d initramfs ]; then (cd initramfs && find . | cpio -o -H newc) > init.cpio; else echo "Directory initramfs not found!"; fi
+
+# Use qemu to boot specific kernel and initrd files
+qemu-boot KERNEL INITRD:
+    qemu-system-x86_64 -kernel {{KERNEL}} -initrd {{INITRD}}
