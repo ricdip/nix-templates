@@ -46,6 +46,11 @@
           path = ./kernel;
           description = "C/C++/NASM kernel-space development environment";
         };
+        # nix flake init -t .#python-poetry
+        python-poetry = {
+          path = ./python-poetry;
+          description = "Python development environment with poetry";
+        };
       };
     };
 }

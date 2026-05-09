@@ -1,0 +1,31 @@
+# Show help message
+default:
+    @just --list
+
+# Show poetry verbose help message
+poetry-help:
+    poetry -v
+
+# Initialize poetry environment
+poetry-init:
+    poetry init
+
+# Install poetry environment dependencies
+poetry-install:
+    poetry install --no-root
+
+# Run file with python from poetry
+poetry-python FILE:
+    poetry run python {{FILE}}
+
+# Show poetry environment list
+poetry-venv-list:
+    poetry env list
+
+# Show poetry environment info
+poetry-venv-info:
+    poetry env info
+
+# Delete poetry environment
+poetry-venv-delete:
+    poetry env remove
