@@ -56,6 +56,11 @@
           path = ./go;
           description = "Go development environment";
         };
+        # nix flake init -t .#rust
+        rust = {
+          path = ./rust;
+          description = "Rust development environment";
+        };
       };
     };
 }
