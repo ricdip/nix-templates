@@ -1,5 +1,5 @@
 {
-  description = "C/C++/NASM user-space development environment";
+  description = "Zig development environment";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -31,21 +31,8 @@
       devShells = forAllSystems (pkgs: {
         default = pkgs.mkShell {
           packages = with pkgs; [
-            gcc # GNU Compiler Collection
-            # clang # C language family frontend for LLVM (compiler)
-            gnumake # tool to control the generation of non-source files from sources (make)
-            cmake # cross-platform, open-source build system generator
-
-            gdb # GNU Project debugger
-            # gdbgui # browser-based frontend for GDB
-            # lldb # next-generation high-performance debugger
-            # valgrind # debugging and profiling tool suite
-            # clang-tools # formatter, language server
-
-            binutils # tools for manipulating binaries (linker, assembler, etc.)
-            nasm # 80x86 and x86-64 assembler
-
-            pkg-config # tool that allows packages to find out information about other packages
+            zig # general-purpose programming language and toolchain for maintaining robust, optimal, and reusable software
+            # zls # Zig LSP implementation + Zig Language Server
 
             # utils
             license-generator # CLI tool for generating license files
@@ -57,15 +44,14 @@
           ];
 
           shellHook = ''
+
             echo ""
-            echo "> Gcc"
-            gcc --version
-            echo "> Nasm"
-            nasm -v
+            echo "> Zig"
+            zig version
             echo ""
-            echo "**********************************************"
-            echo "> C/C++/NASM user-space dev environment ready!"
-            echo "**********************************************"
+            echo "****************************"
+            echo "> Zig dev environment ready!"
+            echo "****************************"
           '';
         };
       });

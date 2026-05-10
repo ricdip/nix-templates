@@ -29,10 +29,10 @@
           let
             pkgs = import nixpkgs { inherit system; };
             toolchain = fenix.packages.${system}.stable.withComponents [
-              "cargo" # downloads your Rust project's dependencies and builds your project
-              "rustc" # safe, concurrent, practical language
-              "rustfmt" # tool for formatting Rust code according to style guidelines
-              "clippy" # bunch of lints to catch common mistakes and improve your Rust code
+              "cargo" # downloads your Rust project's dependencies and builds your project (builder)
+              "rustc" # safe, concurrent, practical language (compiler)
+              "rustfmt" # tool for formatting Rust code according to style guidelines (formatter)
+              "clippy" # bunch of lints to catch common mistakes and improve your Rust code (linter)
             ];
           in
           f pkgs toolchain
@@ -43,8 +43,11 @@
         pkgs: toolchain: {
           default = pkgs.mkShell {
             packages = with pkgs; [
-              toolchain
+              toolchain # configured Rust toolchain
+              # rust-analyzer # language server
+
               openssl # cryptographic library that implements the SSL and TLS protocols
+              # pkg-config # tool that allows packages to find out information about other packages
 
               # utils
               license-generator # CLI tool for generating license files

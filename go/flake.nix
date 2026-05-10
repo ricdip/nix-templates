@@ -35,6 +35,7 @@
             gotools # additional tools for Go development
             delve # debugger for the Go programming language
             # gdlv # GUI frontend for Delve
+            # gopls # language server
 
             # utils
             license-generator # CLI tool for generating license files

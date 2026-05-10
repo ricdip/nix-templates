@@ -61,6 +61,11 @@
           path = ./rust;
           description = "Rust development environment";
         };
+        # nix flake init -t .#zig
+        zig = {
+          path = ./zig;
+          description = "Zig development environment";
+        };
       };
     };
 }

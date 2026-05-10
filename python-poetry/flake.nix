@@ -31,7 +31,12 @@
       devShells = forAllSystems (pkgs: {
         default = pkgs.mkShell {
           packages = with pkgs; [
+            # python3 # interpreter
+            # python3Packages.python-lsp-server # language server
+            # python3Packages.black # formatter
+
             poetry # Python dependency management and packaging made easy
+
             # used C libraries (for numpy)
             openblas
             stdenv.cc.cc.lib

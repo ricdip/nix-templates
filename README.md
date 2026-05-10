@@ -1,13 +1,17 @@
 # Nix Templates
 
-Collection of reusable **nix flake templates** for development environments.
+Collection of reusable **nix flake templates** for creating development environments.
 
 ## Available Templates
 
-* **java**: Java development (choosable JDK 8/17/21/25 + Maven)
-* **java-spring**: Java development with Spring Boot (choosable JDK 8/17/21/25 + Maven + Spring CLI)
-* **system**: C/C++/NASM user-space development
-* **kernel**: C/C++/NASM kernel-space development
+* **java**: Java development environment (choosable JDK 8/17/21/25 + Maven)
+* **java-spring**: Java development environment with Spring Boot (choosable JDK 8/17/21/25 + Maven + Spring CLI)
+* **system**: C/C++/NASM user-space development environment
+* **kernel**: C/C++/NASM kernel-space development environment
+* **python-poetry**: Python development environment with poetry
+* **go**: Go development environment
+* **rust**: Rust development environment
+* **zig**: Zig development environment
 
 ## Usage
 
@@ -25,7 +29,7 @@ Then enter the development environment:
 user@host:~$ nix develop
 ```
 
-Or specify a shell (if available in the template):
+Or specify a shell (if available in the nix template):
 
 ```bash
 user@host:~$ nix develop .#jdk21
