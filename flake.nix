@@ -2,7 +2,7 @@
   description = "Nix templates for development environments";
 
   outputs =
-    { self, nixpkgs }:
+    { nixpkgs, ... }:
     let
       systems = [
         "x86_64-linux"
@@ -22,7 +22,7 @@
       inherit systems;
       lib = forAllSystems (
         system: pkgs: {
-          mkJavaShell = import ./lib/java.nix { inherit pkgs; };
+          mkJavaShell = import ./lib/java-base-shell.nix { inherit pkgs; };
         }
       );
       templates = {

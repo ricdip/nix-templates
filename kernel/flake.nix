@@ -11,9 +11,9 @@
 
   outputs =
     {
-      self,
       nixpkgs,
       base,
+      ...
     }:
     let
       systems = base.systems;

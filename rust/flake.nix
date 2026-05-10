@@ -15,10 +15,10 @@
 
   outputs =
     {
-      self,
       nixpkgs,
       base,
       fenix,
+      ...
     }:
     let
       systems = base.systems;
