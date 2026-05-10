@@ -13,3 +13,7 @@ spring-explore:
 # Create a new Spring Boot project
 spring-create JAVA_VERSION SPRING_VERSION ARTIFACT_ID GROUP_ID DESCRIPTION DEPENDENCIES:
     spring init --java-version {{JAVA_VERSION}} --boot-version {{SPRING_VERSION}} --artifact-id {{ARTIFACT_ID}} --group-id {{GROUP_ID}} --description "{{DESCRIPTION}}" --dependencies "{{DEPENDENCIES}}" --language "java" --packaging "jar" --build "maven" {{ARTIFACT_ID}}
+
+# Spawn IntelliJ Community IDE in specific directory (if installed)
+ide DIRECTORY:
+    idea-oss {{DIRECTORY}}

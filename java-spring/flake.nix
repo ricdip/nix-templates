@@ -30,6 +30,7 @@
                 inherit jdk;
                 extraInputs = [
                   pkgs.spring-boot-cli # CLI which makes it easy to create spring-based applications
+                  # pkgs.jetbrains.idea-oss # IntelliJ IDEA Community IDE
                 ];
                 extraShellHook = ''
                   echo "> Spring Boot CLI:"
