@@ -52,6 +52,7 @@
             echo "****************************"
             echo "> Zig dev environment ready!"
             echo "****************************"
+            export PS1="$PS1 (zig): "
           '';
         };
       });

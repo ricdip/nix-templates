@@ -58,6 +58,7 @@
             echo "***************************"
             echo "> Go dev environment ready!"
             echo "***************************"
+            export PS1="$PS1 (go): "
           '';
         };
       });

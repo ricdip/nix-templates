@@ -35,6 +35,7 @@
                 extraShellHook = ''
                   echo "> Spring Boot CLI:"
                   spring --version
+                  export PS1="$PS1 (spring): "
                 '';
               };
           in

@@ -70,6 +70,7 @@
               echo "*****************************"
               echo "> Rust dev environment ready!"
               echo "*****************************"
+              export PS1="$PS1 (rust): "
             '';
           };
         }

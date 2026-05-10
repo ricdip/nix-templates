@@ -122,6 +122,7 @@
               echo "************************************************"
               echo "> C/C++/NASM kernel-space dev environment ready!"
               echo "************************************************"
+              export PS1="$PS1 (kernel): "
             '';
           };
         }

@@ -66,6 +66,7 @@
             echo "**********************************************"
             echo "> C/C++/NASM user-space dev environment ready!"
             echo "**********************************************"
+            export PS1="$PS1 (system): "
           '';
         };
       });

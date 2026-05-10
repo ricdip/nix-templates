@@ -69,6 +69,7 @@
             echo "*******************************************"
             echo "> Python dev environment with poetry ready!"
             echo "*******************************************"
+            export PS1="$PS1 (python): "
           '';
         };
       });

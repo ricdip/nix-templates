@@ -31,7 +31,9 @@
                 extraInputs = [
                   # pkgs.jetbrains.idea-oss # IntelliJ IDEA Community IDE
                 ];
-                extraShellHook = "";
+                extraShellHook = ''
+                  export PS1="$PS1 (java): "
+                '';
               };
 
           in
