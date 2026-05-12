@@ -66,6 +66,11 @@
           path = ./zig;
           description = "Zig development environment";
         };
+        # nix flake init -t .#nodejs
+        nodejs = {
+          path = ./nodejs;
+          description = "NodeJS development environment";
+        };
       };
     };
 }
