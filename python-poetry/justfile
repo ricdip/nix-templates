@@ -29,3 +29,13 @@ poetry-venv-info:
 # Delete poetry environment
 poetry-venv-delete:
     poetry env remove
+
+# Create workspace
+create-workspace:
+    mkdir -p devshell
+    mv flake.nix devshell
+
+# Enter workspace
+enter-workspace:
+    nix develop ./devshell
+

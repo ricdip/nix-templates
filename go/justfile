@@ -13,3 +13,13 @@ go-run:
 # Compile Go module into an executable
 go-build:
     go build
+
+# Create workspace
+create-workspace:
+    mkdir -p devshell
+    mv flake.nix devshell
+
+# Enter workspace
+enter-workspace:
+    nix develop ./devshell
+

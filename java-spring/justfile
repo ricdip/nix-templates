@@ -17,3 +17,17 @@ spring-create JAVA_VERSION SPRING_VERSION ARTIFACT_ID GROUP_ID DESCRIPTION DEPEN
 # Spawn IntelliJ Community IDE in specific directory (if installed)
 ide DIRECTORY:
     idea-oss {{DIRECTORY}}
+
+# Create workspace
+create-workspace:
+    mkdir -p devshell
+    mv flake.nix devshell
+
+# Enter workspace
+enter-workspace:
+    nix develop ./devshell
+
+# Enter workspace specifying the JDK version
+enter-workspace-with-version JDK:
+    nix develop ./devshell#{{JDK}}
+

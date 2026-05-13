@@ -36,6 +36,25 @@ Or specify a shell (if available in the nix template):
 user@host:~$ nix develop .#jdk21
 ```
 
+Or create the workspace by using the `justfile` recipe `create-workspace`:
+
+```bash
+# command that creates the `devshell` directory and moves the flake.nix inside that directory
+user@host:~$ just create-workspace
+```
+
+After creating the workspace, it can be entered with the recipe `enter-workspace` or `enter-workspace-with-version`:
+
+```bash
+# use the default shell
+user@host:~$ just enter-workspace
+
+# specify a shell (if available in the nix template)
+user@host:~$ just enter-workspace-with-version jdk21
+```
+
+The workspace creation can be useful to limit the size of the directory copied to the nix store. `create-workspace` copies only the `devshell` directory to the nix store instead of the current project directory.
+
 ## Discover Templates
 
 ```bash
