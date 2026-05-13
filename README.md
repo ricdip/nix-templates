@@ -13,6 +13,7 @@ Collection of reusable **nix flake templates** for creating development environm
 * **rust**: Rust development environment
 * **zig**: Zig development environment
 * **nodejs**: NodeJS development environment
+* **latex**: LaTex environment
 
 ## Usage
 

@@ -71,6 +71,11 @@
           path = ./nodejs;
           description = "NodeJS development environment";
         };
+        # nix flake init -t .#latex
+        latex = {
+          path = ./latex;
+          description = "LaTex environment";
+        };
       };
     };
 }
